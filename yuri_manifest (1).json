@@ -1,0 +1,20 @@
+{
+  "name": "Yuri 🗂️",
+  "short_name": "Yuri 🗂️",
+  "start_url": ".",
+  "display": "browser",
+  "background_color": "#F0EFE9",
+  "theme_color": "#F0EFE9",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/BnLNpH0x/Bazi-iii-Yuri-Directory.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.postimg.cc/BnLNpH0x/Bazi-iii-Yuri-Directory.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
