@@ -94,22 +94,20 @@
     box-shadow: 0 4px 6px rgba(0,0,0,0.25), 0 1px 3px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.25);
   }
   
-  .grid-item:hover, .grid-item:focus {
+  @media (hover: hover) {
+    .grid-item:hover {
+      transform: scale(1.4);
+      z-index: 100;
+      box-shadow: 0 10px 30px currentColor, 0 0 20px currentColor, inset 0 1px 0 rgba(255,255,255,0.25);
+      text-shadow: 0 0 12px currentColor;
+    }
+  }
+
+  .grid-item:active, .grid-item.pressed {
     transform: scale(1.4);
     z-index: 100;
     box-shadow: 0 10px 30px currentColor, 0 0 20px currentColor, inset 0 1px 0 rgba(255,255,255,0.25);
     text-shadow: 0 0 12px currentColor;
-    outline: none;
-  }
-  .grid-item.no-hover, .grid-item.no-hover:hover, .grid-item.no-hover:focus {
-    transform: none !important;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.25), 0 1px 3px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.25) !important;
-    text-shadow: none !important;
-  }
-
-  .grid-item:active {
-    transform: scale(1.35) translateY(1px);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3), inset 0 2px 4px rgba(0,0,0,0.2);
   }
 
   .grid-item span {
@@ -192,24 +190,19 @@
     
     div.innerHTML = `<span style="color: ${colors.numColor}">${displayNum}</span>${label}`;
     
-    div.onclick = () => {
-      window.open(baseUrl + siteNum, '_blank');
-    };
+    div.addEventListener('touchstart', () => {
+      div.classList.add('pressed');
+      setTimeout(() => {
+        window.open(baseUrl + siteNum, '_blank');
+        div.classList.remove('pressed');
+      }, 350);
+    }, { passive: true });
 
-    // Fix stuck hover on mobile touch
-    div.addEventListener('touchend', () => {
-      div.blur();
-      setTimeout(() => { div.classList.add('no-hover'); setTimeout(() => div.classList.remove('no-hover'), 300); }, 0);
-    });
+    div.onclick = (e) => {
+      if (e.pointerType !== 'touch') window.open(baseUrl + siteNum, '_blank');
+    };
     
     container.appendChild(div);
-  });
-
-  // Reset all items when page becomes visible again (user swipes back)
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) {
-      document.querySelectorAll('.grid-item').forEach(el => { el.blur(); el.classList.add('no-hover'); setTimeout(() => el.classList.remove('no-hover'), 300); });
-    }
   });
 </script>
 
